@@ -1,0 +1,6 @@
+﻿services:
+  studentsbot.students:
+    image: studentsbot.students
+    build:
+      context: .
+      dockerfile: StudentsBot.Students/Dockerfile
