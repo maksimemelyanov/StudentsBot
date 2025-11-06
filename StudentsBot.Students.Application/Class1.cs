@@ -1,5 +1,3 @@
 ﻿namespace StudentsBot.Students.Application;
 
-public class Class1
-{
-}
+public record AssemblyMarker;

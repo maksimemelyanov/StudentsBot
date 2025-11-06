@@ -1,4 +1,5 @@
 using Microsoft.EntityFrameworkCore;
+using StudentsBot.Students.Application;
 using StudentsBot.Students.Domain.Groups;
 using StudentsBot.Students.Domain.Students;
 using StudentsBot.Students.Infrastructure;
@@ -24,6 +25,7 @@ public class Program
         builder.Services.AddScoped<IGroupRepository, GroupRepository>();
         builder.Services.AddEndpointsApiExplorer();
         builder.Services.AddSwaggerGen();
+        builder.Services.AddMediatR(cfg => cfg.RegisterServicesFromAssembly(typeof(AssemblyMarker).Assembly));
         var app = builder.Build();
 
         // Configure the HTTP request pipeline.

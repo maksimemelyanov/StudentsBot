@@ -14,12 +14,12 @@ public class GroupRepository : IGroupRepository
 
     public async Task<Group?> GetById(int id, CancellationToken cancellationToken)
     {
-        return await _context.Groups.FindAsync([id], cancellationToken);
+        return await _context.Groups.FirstOrDefaultAsync(g => g.Id == id && !g.IsDeleted, cancellationToken);
     }
 
     public async Task<IEnumerable<Group>> GetAll(CancellationToken cancellationToken)
     {
-        return await _context.Groups.ToListAsync(cancellationToken);
+        return await _context.Groups.Where(g => !g.IsDeleted).ToListAsync(cancellationToken);
     }
 
     public async Task<int> Add(Group group, CancellationToken cancellationToken)
@@ -31,6 +31,7 @@ public class GroupRepository : IGroupRepository
 
     public async Task Update(Group group, CancellationToken cancellationToken)
     {
+        group.UpdatedAt = DateTime.UtcNow;
         _context.Groups.Update(group);
         await _context.SaveChangesAsync(cancellationToken);
     }
@@ -40,7 +41,9 @@ public class GroupRepository : IGroupRepository
         var entity = await GetById(id, cancellationToken);
         if (entity is not null)
         {
-            _context.Groups.Remove(entity);
+            entity.IsDeleted = true;
+            entity.UpdatedAt = DateTime.UtcNow;
+            _context.Groups.Update(entity);
             await _context.SaveChangesAsync(cancellationToken);
         }
     }

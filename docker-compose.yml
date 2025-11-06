@@ -4,3 +4,13 @@
     build:
       context: .
       dockerfile: StudentsBot.Students/Dockerfile
+    container_name: studentsbot.students
+    ports:
+      - "8080:8080"
+    restart: unless-stopped
+    networks:
+      - app-network
+
+networks:
+  app-network:
+    driver: bridge
