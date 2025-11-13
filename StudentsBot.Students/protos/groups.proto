@@ -1,0 +1,53 @@
+syntax = "proto3";
+option csharp_namespace = "Students.GroupsGrpc";
+
+service Groups {
+  rpc GetGroupById (GetGroupByIdRequest) returns (GetGroupByIdResponse);
+  rpc GetGroups (GetGroupsRequest) returns (GetGroupsResponse);
+  rpc CreateGroup (CreateGroupRequest) returns (CreateGroupResponse);
+  rpc UpdateGroup (UpdateGroupRequest) returns (UpdateGroupResponse);
+  rpc DeleteGroup (DeleteGroupRequest) returns (DeleteGroupResponse);
+}
+
+message GetGroupByIdRequest {
+  int32 id = 1;
+}
+
+message GetGroupByIdResponse {
+  Group value = 1;
+}
+
+message GetGroupsRequest {
+}
+
+message GetGroupsResponse {
+  repeated Group Value = 1;
+}
+
+message CreateGroupRequest {
+  string name = 1;
+}
+
+message CreateGroupResponse{
+  int32 id = 1;
+}
+
+message UpdateGroupRequest {
+  int32 id = 1;
+  string name = 2;
+}
+
+message UpdateGroupResponse{
+}
+
+message DeleteGroupRequest {
+  int32 id = 1;
+}
+
+message DeleteGroupResponse{
+}
+
+message Group {
+  int32 id = 1;
+  string name = 2;
+}

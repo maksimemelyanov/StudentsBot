@@ -5,6 +5,7 @@ using StudentsBot.Students.Domain.Students;
 using StudentsBot.Students.Infrastructure;
 using StudentsBot.Students.Infrastructure.Groups;
 using StudentsBot.Students.Infrastructure.Students;
+using StudentsBot.Students.Services;
 
 namespace StudentsBot.Students;
 
@@ -25,8 +26,12 @@ public class Program
         builder.Services.AddScoped<IGroupRepository, GroupRepository>();
         builder.Services.AddEndpointsApiExplorer();
         builder.Services.AddSwaggerGen();
+        builder.Services.AddGrpc();
+        builder.Services.AddGrpcReflection();
         builder.Services.AddMediatR(cfg => cfg.RegisterServicesFromAssembly(typeof(AssemblyMarker).Assembly));
         var app = builder.Build();
+        app.MapGrpcService<GroupsService>();
+        app.MapGrpcReflectionService();
 
         // Configure the HTTP request pipeline.
         if (app.Environment.IsDevelopment())

@@ -8,6 +8,13 @@
     </PropertyGroup>
 
     <ItemGroup>
+        <PackageReference Include="Google.Protobuf" Version="3.33.0" />
+        <PackageReference Include="Grpc.AspNetCore" Version="2.71.0" />
+        <PackageReference Include="Grpc.AspNetCore.Server.Reflection" Version="2.71.0" />
+        <PackageReference Include="Grpc.Tools" Version="2.76.0">
+          <PrivateAssets>all</PrivateAssets>
+          <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+        </PackageReference>
         <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="9.0.2"/>
         <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="9.0.10">
           <PrivateAssets>all</PrivateAssets>
@@ -28,6 +35,13 @@
     <ItemGroup>
       <ProjectReference Include="..\StudentsBot.Students.Application\StudentsBot.Students.Application.csproj" />
       <ProjectReference Include="..\StudentsBot.Students.Infrastructure\StudentsBot.Students.Infrastructure.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <None Remove="protos\groups.proto" />
+      <Protobuf Include="protos\groups.proto" GrpcServices="Server">
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </Protobuf>
     </ItemGroup>
 
 </Project>
